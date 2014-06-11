@@ -19,8 +19,10 @@ public class TwitterSearch {
             while (query != null) {
                 QueryResult queryResult = twitter.search(query);
                 List<Status> statusList = queryResult.getTweets();
-                for (int i = 0; i < statusList.size(); i++) {
-                    results.add(statusList.get(i));
+                for (Status status : statusList) {
+                    if (!status.isRetweet()) {
+                        results.add(status);
+                    }
                     if (results.size() == limit) {
                         return results;
                     }
